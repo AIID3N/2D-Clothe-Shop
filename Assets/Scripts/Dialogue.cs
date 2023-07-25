@@ -10,12 +10,13 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(4, 6)] public string[] dialogueLines;
 
+    public GameObject ShopUI;
+
     private float typingTime = 0.05f;
     private bool isplayerInRange;
     private bool didDialogueStart;
     private int lineIndex;
 
-    // Update is called once per frame
     void Update()
     {
         if (isplayerInRange && Input.GetButtonDown("Fire1"))
@@ -58,11 +59,12 @@ public class Dialogue : MonoBehaviour
             didDialogueStart = false;
             dialoguePanel.SetActive(false);
             DialogueMark.SetActive(true);
+            ShopUI.SetActive(true);
             Time.timeScale = 1f;
         }
     }
 
-    private IEnumerator ShowLine()
+    private IEnumerator ShowLine() //tiping
     {
         dialogueText.text = string.Empty;
 
