@@ -10,7 +10,6 @@ public class Dialogue : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField, TextArea(4, 6)] public string[] dialogueLines;
 
-    public GameObject ShopUI;
 
     private float typingTime = 0.05f;
     private bool isplayerInRange;
@@ -59,9 +58,9 @@ public class Dialogue : MonoBehaviour
             didDialogueStart = false;
             dialoguePanel.SetActive(false);
             DialogueMark.SetActive(true);
-            ShopUI.SetActive(true);
             Time.timeScale = 1f;
         }
+            
     }
 
     private IEnumerator ShowLine() //tiping
