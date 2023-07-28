@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
 
-        playerAnimator.Play("Rogue_walk_01");
+        
 
     }
 
