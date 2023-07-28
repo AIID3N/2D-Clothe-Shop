@@ -20,6 +20,8 @@ public class Inventory : MonoBehaviour
     public Dialogue dialogue;
     //public GameObject uiDialogue;
 
+    public CoinController scriptCoin;
+
 
 
     public GameObject[] tiendaSlots; // Asigna los botones de la tienda (con sus iconos) desde el editor de Unity
@@ -61,35 +63,39 @@ public class Inventory : MonoBehaviour
 
     public void MoverIcono(GameObject button)
     {
-        // Obtener el ícono del botón de la tienda clicado
-        GameObject icono = button.transform.GetChild(0).gameObject;
-
-        // Buscar el primer slot vacío del inventario
-        int inventarioVacioIndex = -1;
-        for (int i = 0; i < inventarioSlots.Length; i++)
+        if(scriptCoin.monedas>=8)
         {
-            if (inventarioSlots[i].transform.childCount == 0)
+            // Obtener el ícono del botón de la tienda clicado
+            GameObject icono = button.transform.GetChild(0).gameObject;
+
+            // Buscar el primer slot vacío del inventario
+            int inventarioVacioIndex = -1;
+            for (int i = 0; i < inventarioSlots.Length; i++)
             {
-                inventarioVacioIndex = i;
-                break;
+                if (inventarioSlots[i].transform.childCount == 0)
+                {
+                    inventarioVacioIndex = i;
+                    break;
+                }
+            }
+
+            if (inventarioVacioIndex != -1)
+            {
+                // Si se encontró un slot vacío en el inventario, mover el ícono y actualizar el inventarioIconos
+                icono.transform.SetParent(inventarioSlots[inventarioVacioIndex].transform);
+                icono.transform.localPosition = Vector3.zero;
+
+                // Obtener el identificador del ícono
+                IconInfo iconoInfo = icono.GetComponent<IconInfo>();
+                inventarioIconos[inventarioVacioIndex] = iconoInfo.tipo; // Actualizar el inventarioIconos con el nuevo tipo de ícono en el slot del inventario
+            }
+            else
+            {
+                // Si todos los slots del inventario están ocupados, mostrar mensaje en la consola
+                Debug.Log("Slots llenos");
             }
         }
-
-        if (inventarioVacioIndex != -1)
-        {
-            // Si se encontró un slot vacío en el inventario, mover el ícono y actualizar el inventarioIconos
-            icono.transform.SetParent(inventarioSlots[inventarioVacioIndex].transform);
-            icono.transform.localPosition = Vector3.zero;
-
-            // Obtener el identificador del ícono
-            IconInfo iconoInfo = icono.GetComponent<IconInfo>();
-            inventarioIconos[inventarioVacioIndex] = iconoInfo.tipo; // Actualizar el inventarioIconos con el nuevo tipo de ícono en el slot del inventario
-        }
-        else
-        {
-            // Si todos los slots del inventario están ocupados, mostrar mensaje en la consola
-            Debug.Log("Slots llenos");
-        }
+          
     }
 
     public void ActivarGameObjectEnInventario(int index)
@@ -103,30 +109,30 @@ public class Inventory : MonoBehaviour
                     capota1.SetActive(true);
                     hoodORG1.SetActive(false);
                     capota2.SetActive(false);
-                    cabello.SetActive(false);// Activa el cubo
+                    cabello.SetActive(false);
                     break;
 
                 case IconType.Traje1:
                     traje1.SetActive(true);
                     torsoORG1.SetActive(false);
-                    traje2.SetActive(false);// Activa la esfera
+                    traje2.SetActive(false);
                     break;
 
                 case IconType.Mascara:
                     mascara.SetActive(true);
-                    headORG.SetActive(false);// Activa el plano
+                    headORG.SetActive(false);
                     break;
                 case IconType.Capota2:
                     capota2.SetActive(true);
                     hoodORG1.SetActive(false); 
                     capota1.SetActive(false);
-                    cabello.SetActive(false);// Activa el cubo
+                    cabello.SetActive(false);
                     break;
 
                 case IconType.Traje2:
                     traje2.SetActive(true);
                     torsoORG1.SetActive(false);
-                    traje1.SetActive(false);// Activa la esfera
+                    traje1.SetActive(false);
                     break;
 
                 case IconType.Cabello:

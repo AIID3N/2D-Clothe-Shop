@@ -16,16 +16,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        { 
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveInput = new Vector2(moveX, moveY).normalized;
 
-        playerAnimator.SetFloat("Horizontal", moveX);
-        playerAnimator.SetFloat("Vertical", moveY);
-        playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
-
-        }
+        playerAnimator.Play("Rogue_walk_01");
 
     }
 

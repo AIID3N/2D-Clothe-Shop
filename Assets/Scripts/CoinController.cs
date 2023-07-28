@@ -5,8 +5,11 @@ using TMPro;
 
 public class CoinController : MonoBehaviour
 {
-    public int monedas = 0;
+    public float monedas = 0;
+
+
     [SerializeField] private TMP_Text txtCoin;
+
 
     void Start()
     {
@@ -27,5 +30,10 @@ public class CoinController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
+    }
+
+    public void Compra()
+    {
+
     }
 }
